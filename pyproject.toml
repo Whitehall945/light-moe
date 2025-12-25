@@ -1,0 +1,114 @@
+[build-system]
+requires = ["scikit-build-core>=0.5", "pybind11>=2.11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "light-moe"
+version = "0.1.0"
+description = "High-Performance Pipeline-Parallel MoE Inference Engine with CuTe"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Light-MoE Contributors"}
+]
+keywords = [
+    "deep-learning",
+    "moe",
+    "mixture-of-experts",
+    "cuda",
+    "cutlass",
+    "inference",
+    "llm",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "torch>=2.0.0",
+    "numpy>=1.24.0",
+    "transformers>=4.35.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+benchmark = [
+    "triton>=2.1.0",
+    "matplotlib>=3.7.0",
+    "pandas>=2.0.0",
+]
+demo = [
+    "gradio>=4.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/YOUR_USERNAME/light-moe"
+Documentation = "https://github.com/YOUR_USERNAME/light-moe#readme"
+Repository = "https://github.com/YOUR_USERNAME/light-moe"
+Issues = "https://github.com/YOUR_USERNAME/light-moe/issues"
+
+[tool.scikit-build]
+cmake.build-type = "Release"
+wheel.packages = ["python/light_moe"]
+wheel.install-dir = "light_moe"
+
+[tool.scikit-build.cmake.define]
+LIGHT_MOE_BUILD_TESTS = "OFF"
+LIGHT_MOE_BUILD_BENCHMARKS = "OFF"
+LIGHT_MOE_BUILD_PYTHON = "ON"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # function calls in argument defaults
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["light_moe"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
