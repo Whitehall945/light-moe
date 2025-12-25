@@ -1,0 +1,36 @@
+{
+  "config": {
+    "num_experts": 8,
+    "top_k": 2,
+    "hidden_size": 4096,
+    "intermediate_size": 14336,
+    "batch_size": 1,
+    "seq_len": 2048,
+    "warmup": 10,
+    "iterations": 100,
+    "dtype": "float16"
+  },
+  "results": [
+    {
+      "name": "PyTorch Native",
+      "avg_time_ms": 27.65117141418159,
+      "std_time_ms": 0.3137813683049887,
+      "tflops": 34.79562470451226,
+      "memory_mb": 1942.382592
+    },
+    {
+      "name": "PyTorch Optimized",
+      "avg_time_ms": 21.97720223106444,
+      "std_time_ms": 0.16978784094446556,
+      "tflops": 43.77899302432728,
+      "memory_mb": 2069.865472
+    },
+    {
+      "name": "torch.compile",
+      "avg_time_ms": 21.52403256855905,
+      "std_time_ms": 0.1810590621093199,
+      "tflops": 44.700721396112044,
+      "memory_mb": 2019.7888
+    }
+  ]
+}
