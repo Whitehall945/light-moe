@@ -75,7 +75,7 @@ if cuda_available:
             name="light_moe._C",
             sources=[
                 str(ROOT / "csrc" / "grouped_gemm.cu"),
-                str(ROOT / "csrc" / "fused_gate.cu"),
+                str(ROOT / "csrc" / "fused_moe_ops.cu"),
                 str(ROOT / "csrc" / "bindings.cpp"),
             ],
             include_dirs=[str(ROOT / "include")] + cuda_include_dirs,
